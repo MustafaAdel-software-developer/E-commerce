@@ -1,22 +1,3 @@
-let userInfo = document.getElementById("user_info");
-let userDom = document.getElementById("user");
-let links = document.getElementById("links");
-let logoutBtn = document.getElementById("logout");
-
-let username = localStorage.getItem("username");
-if (username) {
-  links.remove();
-  userInfo.style.display = "flex";
-  userDom.innerHTML = username;
-}
-
-logoutBtn.addEventListener("click", function () {
-  localStorage.clear();
-  setTimeout(() => {
-    window.location = "register.html";
-  }, 1500);
-});
-
 // Define Products
 let productDom = document.querySelector(".products");
 let cartProducts = document.querySelector(".carts-products");
@@ -82,20 +63,30 @@ function drawProductsUI() {
 
 drawProductsUI();
 
-function addToCart(id) {
-  let clickedItem = Products.find((item) => item.id === id);
-  cartProductsDom.innerHTML += `<p>${clickedItem.title}</p>`;
+let addedItem = localStorage.getItem("ProductsInCart")
+  ? JSON.parse(localStorage.getItem("ProductsInCart"))
+  : [];
 
-  let cartProductLen = document.querySelectorAll(".carts-products div p");
-  console.log(cartProductLen);
-
+if (addedItem) {
+  addedItem.map((item) => {
+    cartProductsDom.innerHTML += `<p>${item.title}</p>`;
+  });
   badgeDom.style.display = "block";
-  badgeDom.innerHTML = cartProductLen.length;
+  badgeDom.innerHTML += addedItem.length;
 }
 
-function checkLogedUser() {
+function addToCart(id) {
   if (localStorage.getItem("username")) {
-    window.location = "cartproducts.html";
+    let clickedItem = Products.find((item) => item.id === id);
+    cartProductsDom.innerHTML += `<p>${clickedItem.title}</p>`;
+
+    addedItem = [...addedItem, clickedItem];
+    localStorage.setItem("ProductsInCart", JSON.stringify(addedItem));
+    let cartProductLen = document.querySelectorAll(".carts-products div p");
+    console.log(cartProductLen);
+
+    badgeDom.style.display = "block";
+    badgeDom.innerHTML = cartProductLen.length;
   } else {
     window.location = "login.html";
   }

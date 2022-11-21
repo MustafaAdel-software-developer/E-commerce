@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopping Cart | login Page</title>
 
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/login.css" />
   </head>
@@ -16,16 +17,37 @@
           <a href="index.html" class="brand"> Shopping Cart </a>
 
           <nav>
-            <ul>
+            <ul id="links">
               <li><a href="login.html">Sign in</a></li>
               <li><a href="register.html">Sign up</a></li>
+            </ul>
+            <ul id="user_info">
+              <li><a href="#" id="user"></a></li>
+              <li class="badge-list">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge">1</span>
+
+                <div class="carts-products">
+                  <div></div>
+                  <a href="cartproducts.html" class="view-products"
+                    >view products</a
+                  >
+                </div>
+              </li>
+              <li><a href="#" id="logout">Logout</a></li>
             </ul>
           </nav>
         </div>
       </div>
     </header>
 
-    <section class="section-form">Cart Products</section>
-    <script src="js/cart.js"></script>
+    <section class="home">
+      <div class="container">
+        <div class="products"></div>
+      </div>
+    </section>
+
+    <script src="js/user.js"></script>
+    <script src="js/carts.js"></script>
   </body>
 </html>
