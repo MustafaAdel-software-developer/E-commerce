@@ -95,7 +95,7 @@ function addToCart(id) {
 
 function checkLogedUser() {
   if (localStorage.getItem("username")) {
-    console.log("added to cart");
+    window.location = "cartproducts.html";
   } else {
     window.location = "login.html";
   }
