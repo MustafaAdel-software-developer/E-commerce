@@ -5,36 +5,11 @@ let cartProductsDom = document.querySelector(".carts-products div");
 let badgeDom = document.querySelector(".badge");
 let badgeList = document.querySelector(".badge-list");
 
-let Products = [
-  {
-    id: 1,
-    title: "glass",
-    size: "large",
-    img_url: "img/glass.PNG",
-  },
-  {
-    id: 2,
-    title: "watch",
-    size: "large",
-    img_url: "img/watch.webp",
-  },
-  {
-    id: 3,
-    title: "laptop",
-    size: "large",
-    img_url: "img/laptop.jpg",
-  },
-  {
-    id: 4,
-    title: "headphones",
-    size: "large",
-    img_url: "img/headphones.webp",
-  },
-];
-
+//open cart menu
 badgeList.addEventListener("click", openCartMenu);
 
-function drawProductsUI() {
+//display products
+(function drawProductsUI() {
   let productsUI = Products.map((item) => {
     return `
       <div class="product-item">
@@ -59,9 +34,9 @@ function drawProductsUI() {
   });
 
   productDom.innerHTML = productsUI;
-}
+})();
 
-drawProductsUI();
+//check if there is items in localStorage
 
 let addedItem = localStorage.getItem("ProductsInCart")
   ? JSON.parse(localStorage.getItem("ProductsInCart"))
@@ -75,6 +50,7 @@ if (addedItem) {
   badgeDom.innerHTML += addedItem.length;
 }
 
+//Add to cart
 function addToCart(id) {
   if (localStorage.getItem("username")) {
     let clickedItem = Products.find((item) => item.id === id);
@@ -92,6 +68,7 @@ function addToCart(id) {
   }
 }
 
+//open cart menu
 function openCartMenu() {
   if (cartProductsDom.innerHTML != "") {
     if (cartProducts.style.display == "block") {

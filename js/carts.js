@@ -22,7 +22,7 @@ function drawCartProductsUI(Products) {
               </div>
 
               <div class="product-item-actions">
-                <button class="add-to-cart" onclick="removeFromCart(${item.id})">Remove From Cart</button>
+                <button class="add-to-cart" onclick="removeItemFromCart(${item.id})">Remove From Cart</button>
               </div>
           </div>
 
@@ -30,4 +30,14 @@ function drawCartProductsUI(Products) {
   });
 
   productDom.innerHTML = productsUI;
+}
+
+function removeItemFromCart(id) {
+  if (productsInCart) {
+    let items = JSON.parse(productsInCart);
+
+    let filteredItems = items.filter((item) => item.id !== id);
+    drawCartProductsUI(filteredItems);
+    localStorage.setItem("ProductsInCart", JSON.stringify(filteredItems));
+  }
 }
