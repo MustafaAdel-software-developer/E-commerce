@@ -10,13 +10,13 @@ badgeList.addEventListener("click", openCartMenu);
 
 //display products
 (function drawProductsUI() {
-  let productsUI = Products.map((item) => {
+  let productsUI = products.map((item) => {
     return `
       <div class="product-item">
               <img src="${item.img_url}" alt="glass-img" class="product-item-img" />
 
               <div class="product-item-desc">
-                <h2>${item.title}</h2>
+                <a onclick="saveItemData(${item.id})">${item.title}</a>
                 <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Beatae, quam.
@@ -53,7 +53,7 @@ if (addedItem) {
 //Add to cart
 function addToCart(id) {
   if (localStorage.getItem("username")) {
-    let clickedItem = Products.find((item) => item.id === id);
+    let clickedItem = products.find((item) => item.id === id);
     cartProductsDom.innerHTML += `<p>${clickedItem.title}</p>`;
 
     addedItem = [...addedItem, clickedItem];
@@ -77,4 +77,9 @@ function openCartMenu() {
       cartProducts.style.display = "block";
     }
   }
+}
+
+function saveItemData(id) {
+  localStorage.setItem("productID", id);
+  window.location = "cartDetails.html";
 }

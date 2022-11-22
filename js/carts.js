@@ -1,13 +1,14 @@
-let productsInCart = localStorage.getItem("ProductsInCart");
 let productDom = document.querySelector(".products");
+let noProductsDom = document.querySelector(".no-products");
 
-if (productsInCart) {
-  let items = JSON.parse(productsInCart);
-  drawCartProductsUI(items);
-}
+function drawCartProductsUI(allProducts = []) {
+  if (JSON.parse(localStorage.getItem("ProductsInCart")).length == 0) {
+    noProductsDom.innerHTML = "There is no products!!";
+  }
+  let products =
+    JSON.parse(localStorage.getItem("ProductsInCart")) || allProducts;
 
-function drawCartProductsUI(Products) {
-  let productsUI = Products.map((item) => {
+  let productsUI = products.map((item) => {
     return `
       <div class="product-item">
               <img src="${item.img_url}" alt="glass-img" class="product-item-img" />
@@ -32,12 +33,15 @@ function drawCartProductsUI(Products) {
   productDom.innerHTML = productsUI;
 }
 
+drawCartProductsUI();
+
 function removeItemFromCart(id) {
+  let productsInCart = localStorage.getItem("ProductsInCart");
   if (productsInCart) {
     let items = JSON.parse(productsInCart);
 
     let filteredItems = items.filter((item) => item.id !== id);
-    drawCartProductsUI(filteredItems);
     localStorage.setItem("ProductsInCart", JSON.stringify(filteredItems));
+    drawCartProductsUI(filteredItems);
   }
 }

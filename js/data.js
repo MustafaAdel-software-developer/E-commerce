@@ -1,4 +1,4 @@
-let Products = [
+let products = [
   {
     id: 1,
     title: "glass",
@@ -24,3 +24,5 @@ let Products = [
     img_url: "img/headphones.webp",
   },
 ];
+
+localStorage.setItem("products", JSON.stringify(products));
