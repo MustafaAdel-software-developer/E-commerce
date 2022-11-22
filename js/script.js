@@ -88,9 +88,7 @@ function saveItemData(id) {
 }
 
 input.addEventListener("keyup", function (e) {
-  if (e.keyCode === 13) {
-    search(e.target.value, JSON.parse(localStorage.getItem("products")));
-  }
+  search(e.target.value, JSON.parse(localStorage.getItem("products")));
 
   if (e.target.value.trim() === "") {
     drawProductsUI(JSON.parse(localStorage.getItem("products")));
@@ -98,6 +96,6 @@ input.addEventListener("keyup", function (e) {
 });
 
 function search(title, myArr) {
-  let arr = myArr.filter((item) => item.title === title);
+  let arr = myArr.filter((item) => item.title.indexOf(title) !== -1);
   drawProductsUI(arr);
 }
