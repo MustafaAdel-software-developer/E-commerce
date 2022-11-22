@@ -4,6 +4,7 @@ let cartProducts = document.querySelector(".carts-products");
 let cartProductsDom = document.querySelector(".carts-products div");
 let badgeDom = document.querySelector(".badge");
 let badgeList = document.querySelector(".badge-list");
+let products = JSON.parse(localStorage.getItem("products"));
 
 //open cart menu
 badgeList.addEventListener("click", openCartMenu);
