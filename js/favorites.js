@@ -1,12 +1,12 @@
 let productDom = document.querySelector(".products");
 let noProductsDom = document.querySelector(".no-products");
 
-function drawCartProductsUI(allProducts = []) {
-  if (JSON.parse(localStorage.getItem("ProductsInCart")).length == 0) {
+function drawFavoritesProductsUI(allProducts = []) {
+  if (JSON.parse(localStorage.getItem("productsFavorite")).length == 0) {
     noProductsDom.innerHTML = "There is no products!!";
   }
   let products =
-    JSON.parse(localStorage.getItem("ProductsInCart")) || allProducts;
+    JSON.parse(localStorage.getItem("productsFavorite")) || allProducts;
 
   let productsUI = products.map((item) => {
     return `
@@ -24,7 +24,7 @@ function drawCartProductsUI(allProducts = []) {
               </div>
 
               <div class="product-item-actions">
-                <button class="add-to-cart" onclick="removeItemFromCart(${item.id})">Remove From Cart</button>
+                <button class="add-to-cart" >Remove From Favorite</button>
               </div>
           </div>
 
@@ -34,15 +34,15 @@ function drawCartProductsUI(allProducts = []) {
   productDom.innerHTML = productsUI;
 }
 
-drawCartProductsUI();
+drawFavoritesProductsUI();
 
-function removeItemFromCart(id) {
-  let productsInCart = localStorage.getItem("ProductsInCart");
-  if (productsInCart) {
-    let items = JSON.parse(productsInCart);
+// function removeItemFromCart(id) {
+//   let productsFavorite = localStorage.getItem("productsFavorite");
+//   if (productsFavorite) {
+//     let items = JSON.parse(productsFavorite);
 
-    let filteredItems = items.filter((item) => item.id !== id);
-    localStorage.setItem("ProductsInCart", JSON.stringify(filteredItems));
-    drawCartProductsUI(filteredItems);
-  }
-}
+//     let filteredItems = items.filter((item) => item.id !== id);
+//     localStorage.setItem("productsFavorite", JSON.stringify(filteredItems));
+//     drawFavoritesProductsUI(filteredItems);
+//   }
+// }

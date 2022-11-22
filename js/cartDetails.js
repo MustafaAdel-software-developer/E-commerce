@@ -8,4 +8,6 @@ itemDom.innerHTML = `
           <img src="${productDetails.img_url}" alt="" />
           <h2>${productDetails.title}</h2>
           <span>Size : ${productDetails.size}</span>
+          <span>Quantity : ${productDetails.qty}</span>
+
           `;

@@ -16,7 +16,9 @@ let drawProductsUI;
   let productsUI = products.map((item) => {
     return `
       <div class="product-item">
-              <img src="${item.img_url}" alt="glass-img" class="product-item-img" />
+              <img src="${
+                item.img_url
+              }" alt="glass-img" class="product-item-img" />
 
               <div class="product-item-desc">
                 <a onclick="saveItemData(${item.id})">${item.title}</a>
@@ -28,8 +30,12 @@ let drawProductsUI;
               </div>
 
               <div class="product-item-actions">
-                <button class="add-to-cart" onclick="addToCart(${item.id})">Add To Cart</button>
-                <i class="fa-regular fa-heart"></i>
+                <button class="add-to-cart" onclick="addToCart(${
+                  item.id
+                })">Add To Cart</button>
+                <i class="fa-regular fa-heart" style="color:${
+                  item.liked == true ? "red" : ""
+                }" onclick="addToFavorite(${item.id})"></i>
               </div>
           </div>
 
@@ -47,20 +53,34 @@ let addedItem = localStorage.getItem("ProductsInCart")
 
 if (addedItem) {
   addedItem.map((item) => {
-    cartProductsDom.innerHTML += `<p>${item.title}</p>`;
+    cartProductsDom.innerHTML += `<p>${item.title}:${item.qty}</p>`;
   });
   badgeDom.style.display = "block";
   badgeDom.innerHTML += addedItem.length;
 }
 
 //Add to cart
+let allItems = [];
 function addToCart(id) {
   if (localStorage.getItem("username")) {
     let clickedItem = products.find((item) => item.id === id);
-    cartProductsDom.innerHTML += `<p>${clickedItem.title}</p>`;
+    let item = allItems.find((i) => i.id === clickedItem.id);
+
+    if (item) {
+      clickedItem.qty += 1;
+    } else {
+      allItems.push(clickedItem);
+    }
+
+    cartProductsDom.innerHTML = "";
+    allItems.forEach((item) => {
+      cartProductsDom.innerHTML += `<p>${item.title} ${item.qty}</p>`;
+    });
 
     addedItem = [...addedItem, clickedItem];
-    localStorage.setItem("ProductsInCart", JSON.stringify(addedItem));
+
+    let uniqueProducts = getUniqueArr(addedItem, "id");
+    localStorage.setItem("ProductsInCart", JSON.stringify(uniqueProducts));
     let cartProductLen = document.querySelectorAll(".carts-products div p");
     console.log(cartProductLen);
 
@@ -69,6 +89,16 @@ function addToCart(id) {
   } else {
     window.location = "login.html";
   }
+}
+
+function getUniqueArr(arr, filterType) {
+  let unique = arr
+    .map((item) => item[filterType])
+    .map((item, i, final) => final.indexOf(item) === i && i)
+    .filter((item) => arr[item])
+    .map((item) => arr[item]);
+
+  return unique;
 }
 
 //open cart menu
@@ -98,4 +128,28 @@ input.addEventListener("keyup", function (e) {
 function search(title, myArr) {
   let arr = myArr.filter((item) => item.title.indexOf(title) !== -1);
   drawProductsUI(arr);
+}
+
+//Add To Favorite
+let favoriteItems = localStorage.getItem("productsFavorite")
+  ? JSON.parse(localStorage.getItem("productsFavorite"))
+  : [];
+
+function addToFavorite(id) {
+  if (localStorage.getItem("username")) {
+    let clickedItem = products.find((item) => item.id === id);
+    clickedItem.liked = true;
+    favoriteItems = [...favoriteItems, clickedItem];
+    let uniqueProducts = getUniqueArr(favoriteItems, "id");
+    localStorage.setItem("productsFavorite", JSON.stringify(uniqueProducts));
+    products.map((item) => {
+      if (item.id === clickedItem) {
+        item.liked = true;
+      }
+    });
+    localStorage.setItem("products", JSON.stringify(products));
+    drawProductsUI(products);
+  } else {
+    window.location = "login.html";
+  }
 }
