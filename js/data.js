@@ -1,4 +1,4 @@
-let products = [
+let productsDB = [
   {
     id: 1,
     title: "glass",
@@ -25,4 +25,4 @@ let products = [
   },
 ];
 
-localStorage.setItem("products", JSON.stringify(products));
+localStorage.setItem("products", JSON.stringify(productsDB));
