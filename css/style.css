@@ -130,7 +130,15 @@ nav li a {
 }
 
 /* Products */
-
+input#search {
+  width: 100%;
+  display: block;
+  height: 40px;
+  margin: 10px 0;
+  border: 1px solid #b5b5b5;
+  padding: 0 5px;
+  font-size: 15px;
+}
 .products {
   width: 60%;
   margin: 2em 0;

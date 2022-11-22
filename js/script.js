@@ -5,12 +5,14 @@ let cartProductsDom = document.querySelector(".carts-products div");
 let badgeDom = document.querySelector(".badge");
 let badgeList = document.querySelector(".badge-list");
 let products = JSON.parse(localStorage.getItem("products"));
+let input = document.getElementById("search");
 
 //open cart menu
 badgeList.addEventListener("click", openCartMenu);
 
 //display products
-(function drawProductsUI() {
+let drawProductsUI;
+(drawProductsUI = function (products = []) {
   let productsUI = products.map((item) => {
     return `
       <div class="product-item">
@@ -35,7 +37,7 @@ badgeList.addEventListener("click", openCartMenu);
   });
 
   productDom.innerHTML = productsUI;
-})();
+})(JSON.parse(localStorage.getItem("products")));
 
 //check if there is items in localStorage
 
@@ -83,4 +85,19 @@ function openCartMenu() {
 function saveItemData(id) {
   localStorage.setItem("productID", id);
   window.location = "cartDetails.html";
+}
+
+input.addEventListener("keyup", function (e) {
+  if (e.keyCode === 13) {
+    search(e.target.value, JSON.parse(localStorage.getItem("products")));
+  }
+
+  if (e.target.value.trim() === "") {
+    drawProductsUI(JSON.parse(localStorage.getItem("products")));
+  }
+});
+
+function search(title, myArr) {
+  let arr = myArr.filter((item) => item.title === title);
+  drawProductsUI(arr);
 }
