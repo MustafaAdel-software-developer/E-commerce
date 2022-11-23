@@ -43,11 +43,13 @@
 
     <section class="create-product-page">
       <div class="container">
-        <form action="">
+        <form id="create-form">
+          <input type="file" name="" id="upload-img" />
           <input type="text" placeholder="Name ..." id="product-name" />
           <input type="text" placeholder="Description ..." id="product-desc" />
 
           <select name="" id="product-size">
+            <option value="" hidden>Select Size</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
             <option value="large">Large</option>
@@ -59,6 +61,7 @@
     </section>
 
     <script src="js/user.js"></script>
+    <script src="js/data.js"></script>
     <script src="js/createProduct.js"></script>
   </body>
 </html>

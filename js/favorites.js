@@ -16,8 +16,7 @@ function drawFavoritesProductsUI(allProducts = []) {
               <div class="product-item-desc">
                 <h2>${item.title}</h2>
                 <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Beatae, quam.
+                  ${item.desc}
                 </p>
                 <span>size: ${item.size}</span>
                 <span>quantity: ${item.qty}</span>

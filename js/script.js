@@ -23,8 +23,7 @@ let drawProductsUI;
               <div class="product-item-desc">
                 <a onclick="saveItemData(${item.id})">${item.title}</a>
                 <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Beatae, quam.
+                  ${item.desc}
                 </p>
                 <span>${item.size}</span>
               </div>
