@@ -4,7 +4,7 @@ let cartProducts = document.querySelector(".carts-products");
 let cartProductsDom = document.querySelector(".carts-products div");
 let badgeDom = document.querySelector(".badge");
 let badgeList = document.querySelector(".badge-list");
-let products = JSON.parse(localStorage.getItem("products"));
+let products = productsDB;
 let input = document.getElementById("search");
 
 //open cart menu
@@ -42,8 +42,8 @@ let drawProductsUI;
     `;
   });
 
-  productDom.innerHTML = productsUI;
-})(JSON.parse(localStorage.getItem("products")));
+  productDom.innerHTML = productsUI.join("");
+})(JSON.parse(localStorage.getItem("products")) || products);
 
 //check if there is items in localStorage
 
@@ -60,27 +60,30 @@ if (addedItem) {
 }
 
 //Add to cart
-let allItems = [];
 function addToCart(id) {
   if (localStorage.getItem("username")) {
-    let clickedItem = products.find((item) => item.id === id);
-    let item = allItems.find((i) => i.id === clickedItem.id);
+    let product = products.find((item) => item.id === id);
+    let isProductInCart = addedItem.some((i) => i.id === product.id);
 
-    if (item) {
-      clickedItem.qty += 1;
+    if (isProductInCart) {
+      addedItem = addedItem.map((p) => {
+        if (p.id === product.id) p.qty += 1;
+        return p;
+      });
     } else {
-      allItems.push(clickedItem);
+      addedItem.push(product);
     }
 
+    //UI
     cartProductsDom.innerHTML = "";
-    allItems.forEach((item) => {
+    addedItem.forEach((item) => {
       cartProductsDom.innerHTML += `<p>${item.title} ${item.qty}</p>`;
     });
 
-    addedItem = [...addedItem, clickedItem];
+    //Save Data
+    localStorage.setItem("ProductsInCart", JSON.stringify(addedItem));
 
-    let uniqueProducts = getUniqueArr(addedItem, "id");
-    localStorage.setItem("ProductsInCart", JSON.stringify(uniqueProducts));
+    //Add counter of Items
     let cartProductLen = document.querySelectorAll(".carts-products div p");
     console.log(cartProductLen);
 
@@ -137,13 +140,13 @@ let favoriteItems = localStorage.getItem("productsFavorite")
 
 function addToFavorite(id) {
   if (localStorage.getItem("username")) {
-    let clickedItem = products.find((item) => item.id === id);
-    clickedItem.liked = true;
-    favoriteItems = [...favoriteItems, clickedItem];
+    let product = products.find((item) => item.id === id);
+    product.liked = true;
+    favoriteItems = [...favoriteItems, product];
     let uniqueProducts = getUniqueArr(favoriteItems, "id");
     localStorage.setItem("productsFavorite", JSON.stringify(uniqueProducts));
     products.map((item) => {
-      if (item.id === clickedItem) {
+      if (item.id === product) {
         item.liked = true;
       }
     });

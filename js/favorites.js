@@ -24,25 +24,25 @@ function drawFavoritesProductsUI(allProducts = []) {
               </div>
 
               <div class="product-item-actions">
-                <button class="add-to-cart" >Remove From Favorite</button>
+                <button class="add-to-cart" onclick="removeItemFromCart(${item.id})" >Remove From Favorite</button>
               </div>
           </div>
 
     `;
   });
 
-  productDom.innerHTML = productsUI;
+  productDom.innerHTML = productsUI.join("");
 }
 
 drawFavoritesProductsUI();
 
-// function removeItemFromCart(id) {
-//   let productsFavorite = localStorage.getItem("productsFavorite");
-//   if (productsFavorite) {
-//     let items = JSON.parse(productsFavorite);
+function removeItemFromCart(id) {
+  let productsFavorite = localStorage.getItem("productsFavorite");
+  if (productsFavorite) {
+    let items = JSON.parse(productsFavorite);
 
-//     let filteredItems = items.filter((item) => item.id !== id);
-//     localStorage.setItem("productsFavorite", JSON.stringify(filteredItems));
-//     drawFavoritesProductsUI(filteredItems);
-//   }
-// }
+    let filteredItems = items.filter((item) => item.id !== id);
+    localStorage.setItem("productsFavorite", JSON.stringify(filteredItems));
+    drawFavoritesProductsUI(filteredItems);
+  }
+}

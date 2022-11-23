@@ -31,7 +31,7 @@ function drawCartProductsUI(allProducts = []) {
     `;
   });
 
-  productDom.innerHTML = productsUI;
+  productDom.innerHTML = productsUI.join("");
 }
 
 drawCartProductsUI();
