@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopping Cart | Home Page</title>
     <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="css/createProduct.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -40,19 +41,24 @@
       </div>
     </header>
 
-    <section class="home">
+    <section class="create-product-page">
       <div class="container">
-        <input type="text" id="search" placeholder="search by name" />
-        <div class="products"></div>
-      </div>
+        <form action="">
+          <input type="text" placeholder="Name ..." id="product-name" />
+          <input type="text" placeholder="Description ..." id="product-desc" />
 
-      <a href="createProduct.html" class="create-product-icon"
-        ><i class="fa-solid fa-cart-plus"></i>
-      </a>
+          <select name="" id="product-size">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+
+          <input type="submit" value="Create" />
+        </form>
+      </div>
     </section>
 
     <script src="js/user.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/createProduct.js"></script>
   </body>
 </html>
