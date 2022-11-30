@@ -143,6 +143,21 @@ input#search {
   width: 60%;
   margin: 2em 0;
 }
+.container .flex-container {
+  display: flex;
+  gap: 2em;
+}
+.container .products-filter {
+  margin: 2.3em 0;
+  width: 35%;
+}
+.products-filter #size-filter {
+  width: 100%;
+  padding: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #333;
+}
 .product-item {
   display: flex;
   width: 100%;
@@ -202,6 +217,15 @@ input#search {
 }
 .item-details img:hover {
   transform: scale(0.9);
+}
+
+.edit-product {
+  display: block;
+  width: 140px;
+  border: none;
+  background-color: #dfdf26;
+  color: #fff;
+  cursor: pointer;
 }
 
 /************create product****/

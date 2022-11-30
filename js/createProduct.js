@@ -39,6 +39,10 @@ function createProductFunction(e) {
     productName.value = "";
     productDesc.value = "";
     productSizeSelect.value = "";
+
+    setTimeout(() => {
+      window.location = "index.html";
+    }, 500);
   } else {
     alert("Enter Data ...");
   }
@@ -48,7 +52,8 @@ function uploadImg() {
   let file = this.files[0];
   console.log(file);
 
-  let types = ["image/jpeg", "image/png"];
+  let types = ["img/jpeg", "img/png", "img/jpg"];
+
   if (types.indexOf(file.type) !== -1) {
     alert("type not supported!");
     return;
@@ -58,6 +63,19 @@ function uploadImg() {
     alert("img size too big");
     return;
   }
+  getImgBase64(file);
+}
 
-  productImg = URL.createObjectURL(file);
+function getImgBase64(file) {
+  let reader = new FileReader();
+
+  reader.readAsDataURL(file);
+
+  reader.onload = function () {
+    productImg = reader.result;
+  };
+
+  reader.onerror = function () {
+    alert("Error !");
+  };
 }

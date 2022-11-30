@@ -6,6 +6,7 @@ let productsDB = [
     size: "large",
     img_url: "img/glass.PNG",
     qty: 1,
+    isMe: "N",
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ let productsDB = [
     size: "large",
     img_url: "img/watch.webp",
     qty: 1,
+    isMe: "N",
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ let productsDB = [
     size: "large",
     img_url: "img/laptop.jpg",
     qty: 1,
+    isMe: "N",
   },
   {
     id: 4,
@@ -30,7 +33,8 @@ let productsDB = [
     size: "large",
     img_url: "img/headphones.webp",
     qty: 1,
+    isMe: "N",
   },
 ];
 
-// localStorage.setItem("products", JSON.stringify(productsDB));
+localStorage.setItem("products", JSON.stringify(productsDB));
